@@ -10,6 +10,7 @@ package frc.robot;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -36,6 +37,8 @@ public class Robot extends TimedRobot {
 
     private Joystick joystick;
 
+    private PowerDistributionPanel pdp;
+
     /**
      * This function is run when the robot is first started up and should be used
      * for any initialization code.
@@ -55,18 +58,20 @@ public class Robot extends TimedRobot {
 
         SmartDashboard.putNumber("Feeder Motor", 0);
 
-        frontMagazine = new WPI_TalonSRX(2);// Arbirtary
+        frontMagazine = new WPI_TalonSRX(1);// Arbirtary
         frontMagazine.setInverted(true);
 
-        backMagazine = new WPI_TalonSRX(3); // Arbritary
+        backMagazine = new WPI_TalonSRX(2); // Arbritary
 
-        feederMotor = new WPI_TalonSRX(1);
+        feederMotor = new WPI_TalonSRX(3);
         feederMotor.setInverted(true);
 
         // Speed Controllers
         magazine = new SpeedControllerGroup(frontMagazine, backMagazine);
 
         joystick = new Joystick(0);
+
+        pdp = new PowerDistributionPanel();
     }
 
     /**
@@ -149,5 +154,6 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void testPeriodic() {
+        pdp.clearStickyFaults();
     }
 }
